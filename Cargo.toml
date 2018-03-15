@@ -4,10 +4,10 @@ version = "0.1.0"
 authors = ["matthew <matthew.tejo@gmail.com>"]
 
 [dependencies]
-quote = "*"
+quote = "0.4.2"
 
 [dependencies.syn]
-version = "*"
+version = "0.12.14"
 features = ["extra-traits"]
 
 [lib]
