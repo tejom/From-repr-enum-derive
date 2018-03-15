@@ -13,9 +13,9 @@ extern crate from_repr_enum_derive;
 #[repr(u8)]
 #[derive(FromReprEnum,Debug)]
 enum Foo {
-	X = 1,
-	Y = 2,
-	Unknown = 255,
+    X = 1,
+    Y = 2,
+    Unknown = 255,
 }
 
 fn main() {
