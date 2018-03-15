@@ -6,7 +6,7 @@ Currently a `#[repr()]` is needed for the derive to work
 
 Example:
 
-```
+```rust
 
 #[macro_use]
 extern crate from_repr_enum_derive;
@@ -32,7 +32,7 @@ The match block that is created needs a default enum variant. The crate has a de
 ## Custom default variant
 You can define your own with another attribute `#[ReprEnumDefault = ""]`
 
-```
+```rust
 #[repr(u8)]
 #[derive(FromReprEnum, Debug, PartialEq)]
 #[ReprEnumDefault = "NotFound"]
