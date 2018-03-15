@@ -2,6 +2,10 @@
 name = "from-repr-enum-derive"
 version = "0.1.0"
 authors = ["matthew <matthew.tejo@gmail.com>"]
+license = "MIT"
+description = "Derive From for an enum with a repr"
+repository = "https://github.com/tejom/From-repr-enum-derive"
+documentation = "https://github.com/tejom/From-repr-enum-derive"
 
 [dependencies]
 quote = "*"
