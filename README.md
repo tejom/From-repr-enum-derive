@@ -11,7 +11,7 @@ extern crate from_repr_enum_derive;
 
 
 #[repr(u8)]
-#[derive(FromReprEnum,Debug)]
+#[derive(FromReprEnum,Debug,PartialEq)]
 enum Foo {
     X = 1,
     Y = 2,
