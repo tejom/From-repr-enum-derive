@@ -1,0 +1,15 @@
+[package]
+name = "from-repr-enum-derive"
+version = "0.1.0"
+authors = ["matthew <matthew.tejo@gmail.com>"]
+
+[dependencies]
+quote = "*"
+
+[dependencies.syn]
+version = "*"
+features = ["extra-traits"]
+
+[lib]
+proc-macro = true
+
