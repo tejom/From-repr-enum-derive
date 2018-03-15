@@ -2,6 +2,8 @@
 
 A crate to derive from for an Enum with a repr defined
 
+Currently a `#[repr()]` is needed for the derive to work
+
 Example:
 
 ```
@@ -20,8 +22,31 @@ enum Foo {
 
 fn main() {
     let z = Foo::from(1);
-    println!("{:?}",z );
     assert_eq!(Foo::X, z);
 }
 
+```
+
+The match block that is created needs a default enum variant. The crate has a default of `Unknown`
+
+## Custom default variant
+You can define your own with another attribute `#[ReprEnumDefault = ""]`
+
+```
+#[repr(u8)]
+#[derive(FromReprEnum, Debug, PartialEq)]
+#[ReprEnumDefault = "NotFound"]
+enum Bar {
+    X = 1,
+    Y = 2,
+    NotFound = 255,
+}
+
+fn main() {
+    let x = Bar::from(1);
+    assert_eq!(Bar::X, x);
+
+    let u = Bar::from(99);
+    assert_eq!(Bar::NotFound, u);
+}
 ```
