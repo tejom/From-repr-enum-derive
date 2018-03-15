@@ -50,3 +50,7 @@ fn main() {
     assert_eq!(Bar::NotFound, u);
 }
 ```
+
+## Notes
+
+The match block generated tries to use the Enum name with a wildcard. If the variants aren't found by the compiler you might need to add `use path::to::Enum::*`

@@ -16,7 +16,7 @@ pub fn from_repr_enum(input: TokenStream) -> TokenStream {
 
 fn impl_from(ast: &syn::DeriveInput) -> quote::Tokens {
     let name = &ast.ident;
-    let mut rep: syn::Ident = ast.ident;
+    let mut rep: Option<syn::Ident> = None;
     let mut default_variant_name = "Unknown".to_owned();
     let mut default_variant = None;
 
@@ -26,7 +26,7 @@ fn impl_from(ast: &syn::DeriveInput) -> quote::Tokens {
             if let Some(syn::Meta::List(ml)) = a.interpret_meta() {
                 let a = &ml.nested[0];
                 if let &syn::NestedMeta::Meta(syn::Meta::Word(ref r)) = a {
-                    rep = *r;
+                    rep = Some(*r);
                 }
             }
         }
@@ -37,6 +37,10 @@ fn impl_from(ast: &syn::DeriveInput) -> quote::Tokens {
                 }
             }
         }
+    }
+
+    if let None = rep {
+        panic!("#[repr(_)] wasn't found for {}", name );
     }
 
     let mut variants = vec![];
@@ -62,7 +66,7 @@ fn impl_from(ast: &syn::DeriveInput) -> quote::Tokens {
     quote!{
         impl From<#rep> for #name {
             fn from(x: #rep) -> Self {
-                use #name::*;
+                use self::#name::*;
                 match x {
                     #(#variants)*
                     _ => #default_variant,
