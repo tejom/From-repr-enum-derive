@@ -6,6 +6,8 @@ license = "MIT"
 description = "Derive From for an enum with a repr"
 repository = "https://github.com/tejom/From-repr-enum-derive"
 documentation = "https://github.com/tejom/From-repr-enum-derive"
+readme = "README.md"
+
 
 [dependencies]
 quote = "0.4.2"
