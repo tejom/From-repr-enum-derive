@@ -43,22 +43,23 @@ fn impl_from(ast: &syn::DeriveInput) -> quote::Tokens {
         panic!("#[repr(_)] wasn't found for {}", name );
     }
 
-    let mut variants = vec![];
+    let variants: Vec<quote::Tokens>;
     if let syn::Data::Enum(ref d) = ast.data {
-        for v in &d.variants {
+        variants = d.variants.iter().map( |v| {
             let ident = v.ident;
-            if let Some((_, syn::Expr::Lit(ref lit))) = v.discriminant {
-                if let syn::Lit::Int(ref i) = lit.lit {
-                    let tmp = quote!{
-                        #i => #ident,
-                    };
-                    variants.push(tmp);
-                    if ident == default_variant_name {
-                        default_variant = Some(v.ident);
-                    }
-                }
+            if v.ident == default_variant_name {
+                default_variant = Some(v.ident);
             }
-        }
+            let (_, lit) = v.discriminant
+                .clone()
+                .unwrap_or_else(|| panic!(
+                    "#[derive(FromReprEnum)] No variant for {}::{}", name, ident)
+                );
+            quote! {
+                #lit => #ident,
+            }
+        })
+        .collect();
     } else {
         panic!("#[derive(FromReprEnum)] is only defined for Enum")
     }
